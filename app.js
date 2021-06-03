@@ -2,12 +2,12 @@ const express = require("express");
 const mongoose = require('mongoose')
 const pageRoute = require('./routes/pageRoute');
 const courseRoute = require('./routes/courseRoute');
-const Course = require("./models/Course");
+
 
 const app = express();
 
 //Connect db
-await mongoose.connect('mongodb://localhost/smartedu-db', {
+ mongoose.connect('mongodb://localhost/smartedu-db', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
@@ -21,6 +21,8 @@ app.set("view engine", "ejs");
 
 //Middlewears
 app.use(express.static("public"))//static dosyaları ğublic klosöründe olacak.
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 //Routes
 app.use("/", pageRoute);// / ile ilgili istek geldiğinde bunu pageRote yönlendir.
