@@ -34,3 +34,21 @@ exports.getAllCourses = async (req, res) => {
     });
   }
 };
+
+//tekil kurs için
+exports.getCourse = async (req, res) => {
+
+  try {
+  const course = await Course.findOne({slug: req.params.slug});
+  
+    res.status(200).render('course', {//views 'ın içerisndeki courses.ejs yi render edeceğiz içerisine yakalamış olduğumuz coursesleri göndereceğiz.
+      course,
+      page_name: 'courses',
+    })
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      error,
+    });
+  }
+};
