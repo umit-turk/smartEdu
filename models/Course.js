@@ -22,23 +22,24 @@ const CourseSchema = new Schema({
     type: String,
     unique: true,
   },
-  category: {//kurs modeli ile kategori modeli arasında bir ilişki kurmamız lazım.
+  category: {
+    //kurs modeli ile kategori modeli arasında bir ilişki kurmamız lazım.
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category'
+    ref: "Category",
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }
+    ref: "User",
+  },
 });
 
-CourseSchema.pre('validate', function(next){
+CourseSchema.pre("validate", function (next) {
   this.slug = slugify(this.name, {
-    lower:true,
-    strict:true
-  })
+    lower: true,
+    strict: true,
+  });
   next();
-})
+});
 
-const Course = mongoose.model('Course', CourseSchema);
+const Course = mongoose.model("Course", CourseSchema);
 module.exports = Course;
