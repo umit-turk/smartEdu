@@ -47,7 +47,7 @@ exports.logoutUser = (req, res) => {
 
 ///////////
 exports.getDashboardPage = async (req, res) => {
-  const user = await User.findOne({_id:req.session.userID}) // Bu kullanıcıya eşit olan id'yi getir
+  const user = await User.findOne({_id:req.session.userID}).populate('courses'); // Bu kullanıcıya eşit olan id'yi getir
   const categories = await Category.find();
   const courses = await Course.find({user:req.session.userID})
   res.status(200).render("dashboard", {
